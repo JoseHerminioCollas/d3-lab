@@ -20,37 +20,49 @@ function App() {
   return (
     <div className="App">
       <svg
-        width="300"
-        height="300"
-        fill="lightgreen"
+        width="340"
+        height="340"
         style={{ position: 'absolute', top: '40px' }}>
-        <rect x="0" y="0" width="300" height="200" fill="lightgray"/>
+        <rect x="0" y="0" width="340" height="340" fill="lightgray" />
         <g
           transform={`translate(${offset[0]} ${offset[1]})`}
+        >
+          <rect
+            fill="lightgreen"
+            x="0"
+            y="0"
+            width="320"
+            height="320" />
+          <g
+            id="chart-group"
+            transform={`translate(${offset[0]} ${50})`}
           >
-          <rect x="0" y="0" width="300" height="200" />
-          {heirarchyRoot && heirarchyRoot.descendants()
-            .map(e => (
-              <g>
-                <text x={e.x} y={e.y}>{e.data.name}</text>
-                <circle fill="darkblue" cx={e.x} cy={e.y} r="5" />
-              </g>
-            ))
-          }
-          {heirarchyRoot && heirarchyRoot.links()
-            .map(e => (
-              <g>
-                <line
-                  fill="blue"
-                  stroke="darkgreen"
-                  x1={e.source.x}
-                  y1={e.source.y}
-                  x2={e.target.x}
-                  y2={e.target.y}
-                />
-              </g>
-            ))
-          }
+            {heirarchyRoot && heirarchyRoot.descendants()
+              .map(e => (
+                <g
+                  transform={`translate(${e.x} ${e.y})`}
+                  width="100"
+                  height="200">
+                  <text x={12} y={7} fill="red">{e.data.name}</text>
+                  <circle fill="darkblue" cx={0} cy={0} r="5" />
+                </g>
+              ))
+            }
+            {heirarchyRoot && heirarchyRoot.links()
+              .map(e => (
+                <g>
+                  <line
+                    fill="blue"
+                    stroke="darkgreen"
+                    x1={e.source.x}
+                    y1={e.source.y}
+                    x2={e.target.x}
+                    y2={e.target.y}
+                  />
+                </g>
+              ))
+            }
+          </g>
         </g>
       </svg>
       {s}
