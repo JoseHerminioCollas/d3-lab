@@ -4,7 +4,9 @@ import { hierarchyData } from './hierarchy'
 
 const offset = [10, 10]
 let heirarchyRoot
-function drawHD() {
+let isRunning = false
+
+function drawHD(hierarchyData) {
   heirarchyRoot = hierarchy(hierarchyData)
   const treeLayout = tree()
   treeLayout.size([280, 180])
@@ -12,11 +14,27 @@ function drawHD() {
 }
 function App() {
   const [s, setS] = useState(10)
-  useEffect((e) => {
-    drawHD()
-    console.log(heirarchyRoot.descendants())
+
+  function anim() {
+    let clI
+    if (!isRunning) {
+      isRunning = true;
+      clI = setInterval(() => {
+        const num = String(Math.random()).slice(0,4)
+        hierarchyData.children[0].children.push({name: num})
+        hierarchyData.children.push({name: num})
+        drawHD(hierarchyData)
+        setS(num)
+      }, 2000)
+    }
+    setTimeout(() => clearInterval(clI), 10000)
+  }
+    useEffect((e) => {
+    drawHD(hierarchyData)
+    anim()
     setS(30)
   }, [])
+
   return (
     <div className="App">
       <svg
