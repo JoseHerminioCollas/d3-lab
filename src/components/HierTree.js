@@ -5,8 +5,7 @@ const HierTree = ({ hTree }) => {
   return (
     <svg
       width="340"
-      height="340"
-      style={{ position: 'absolute', top: '40px' }}>
+      height="340">
       <rect x="0" y="0" width="340" height="340" fill="lightgray" />
       <g
         transform={`translate(${offset[0]} ${offset[1]})`}

@@ -15,7 +15,9 @@ function App() {
   return (
     <div className="App">
       <HierTree hTree={hTree} />
-      {trigger}
+      <div style={{display: 'none'}}>
+        {trigger}
+      </div>
     </div>
   );
 }
