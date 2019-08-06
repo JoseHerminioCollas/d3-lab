@@ -1,42 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { hierarchy, tree, select } from 'd3'
+import { hierarchy, tree } from 'd3'
 import { hierarchyData } from './hierarchy'
 
-const offset = [10, 10]
-let heirarchyRoot
-let isRunning = false
+const HTree = (hierarchyData) => {
+  const data = hierarchyData
+  let heirarchyTree
 
-function drawHD(hierarchyData) {
-  heirarchyRoot = hierarchy(hierarchyData)
-  const treeLayout = tree()
-  treeLayout.size([280, 180])
-  treeLayout(heirarchyRoot)
-}
-function App() {
-  const [s, setS] = useState(10)
-
-  function anim() {
-    let clI
-    if (!isRunning) {
-      isRunning = true;
-      clI = setInterval(() => {
-        const num = String(Math.random()).slice(0,4)
-        hierarchyData.children[0].children.push({name: num})
-        hierarchyData.children.push({name: num})
-        drawHD(hierarchyData)
-        setS(num)
-      }, 2000)
+  return {
+    getTree: () => {
+      return heirarchyTree
+    },
+    setTree: () => {
+      heirarchyTree = hierarchy(data)
+      const treeLayout = tree()
+      treeLayout.size([280, 180])
+      treeLayout(heirarchyTree)    
     }
-    setTimeout(() => clearInterval(clI), 10000)
   }
-    useEffect((e) => {
-    drawHD(hierarchyData)
-    anim()
-    setS(30)
+}
+
+const hTree = HTree(hierarchyData)
+
+function App() {
+  const [trigger, setTrigger] = useState(0)
+  const offset = [10, 10]
+  useEffect((e) => {
+    hTree.setTree()
+    setTrigger(1)
   }, [])
 
   return (
     <div className="App">
+      {trigger}
       <svg
         width="340"
         height="340"
@@ -55,7 +50,7 @@ function App() {
             id="chart-group"
             transform={`translate(${offset[0]} ${50})`}
           >
-            {heirarchyRoot && heirarchyRoot.descendants()
+            {hTree.getTree() && hTree.getTree().descendants()
               .map(e => (
                 <g
                   transform={`translate(${e.x} ${e.y})`}
@@ -66,7 +61,7 @@ function App() {
                 </g>
               ))
             }
-            {heirarchyRoot && heirarchyRoot.links()
+            {hTree.getTree() && hTree.getTree().links()
               .map(e => (
                 <g>
                   <line
@@ -83,7 +78,6 @@ function App() {
           </g>
         </g>
       </svg>
-      {s}
     </div>
   );
 }
