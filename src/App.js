@@ -1,23 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { hierarchy, tree } from 'd3'
 import { hierarchyData } from './hierarchy'
-
-const HTree = (hierarchyData) => {
-  const data = hierarchyData
-  let heirarchyTree
-
-  return {
-    getTree: () => {
-      return heirarchyTree
-    },
-    setTree: () => {
-      heirarchyTree = hierarchy(data)
-      const treeLayout = tree()
-      treeLayout.size([280, 180])
-      treeLayout(heirarchyTree)    
-    }
-  }
-}
+import HTree from './hierarchy-tree'
 
 const hTree = HTree(hierarchyData)
 
