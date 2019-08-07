@@ -1,57 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { geoEqualEarth, geoPath } from 'd3'
+import { geoGraticule, geoEqualEarth, geoPath, geoOrthographic } from 'd3'
 import { hierarchyData } from './hierarchy'
 import HTree from './hierarchy-tree'
 import HierTree from './components/HierTree'
+import cd from './geojson/5m/2018/us.json'
+import cd2 from './geojson/5m/2018/state.json'
+import earthData from './geojson/earth.json'
+import seattleData from './geojson/seattle.json'
 
 const hTree = HTree(hierarchyData)
-
-const geoJson = {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -122,
-          43.32517767999296
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "A Shape"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [0.0, 0.0],
-            [100.0, 0.0],
-            [100.0, 45.0],
-            [0.0, 45.0]
-            [0.0, 0.0]
-          ]
-        ]
-      }
-    },
-  ]
-}
-const projection = geoEqualEarth()
-  .scale(120)
-  // .translate([550, 450])
-  // .center([-20, 20])
+const graticule = geoGraticule()
+  .step([10, 10]);
+const projection = geoOrthographic()
+  // .scale(100)
+  .rotate([122, -45])
 const path = geoPath(projection)
-
-const projection2 = geoEqualEarth()
-  .fitWidth([300], geoJson)
-const path2 = geoPath(projection2)
 
 function App() {
   const [trigger, setTrigger] = useState(0)
+
   useEffect((e) => {
     hTree.setTree()
     setTrigger(1)
@@ -59,25 +26,40 @@ function App() {
 
   return (
     <div className="App">
-      x
-      <svg width="960" height="500">
-        <rect width="960" height="500" fill="blue" />
-        <circle cx="10" cy="10" r="5" fill="red" />
-        <g transform="translate(30, 30)">
+      <svg
+        width="470" height="300"
+      >
+        <rect width="960" height="500"
+          fill="lightgray" />
+        <g
+          width="960" height="500"
+          transform="scale(0.5) translate(0, 20)"
+        >
           <path
-            d={path2(geoJson)}
-            stroke="red"
-            fill="green"
+            d={path(graticule())}
+            stroke="#eee"
+            fill="transparent"
+            strokeWidth="3"
+          />
+          <path
+            d={path(earthData)}
+            stroke="black"
+            fill="#fff"
+            strokeWidth="0"
+          />
+          <path
+            d={path(cd2)}
+            stroke="#111"
+            fill="#999"
             strokeWidth="2"
           />
+          <path
+            d={path(seattleData)}
+            stroke="red"
+            fill="transparent"
+            strokeWidth="21"
+          />
         </g>
-        <path
-          // transform="scale(0.4)"
-          d={path(geoJson)}
-          stroke="white"
-          fill="transparent"
-          strokeWidth="4"
-        />
       </svg>
       <HierTree hTree={hTree} />
       <div style={{ display: 'none' }}>
