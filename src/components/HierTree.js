@@ -23,6 +23,7 @@ const HierTree = ({ hTree }) => {
           {hTree.getTree() && hTree.getTree().descendants()
             .map(e => (
               <g
+                key={e.data.name + e.x}
                 transform={`translate(${e.x} ${e.y})`}
                 width="100"
                 height="200">
@@ -33,7 +34,9 @@ const HierTree = ({ hTree }) => {
           }
           {hTree.getTree() && hTree.getTree().links()
             .map(e => (
-              <g>
+              <g
+              key={Math.random() + e.source.x}
+              >
                 <line
                   fill="blue"
                   stroke="darkgreen"
