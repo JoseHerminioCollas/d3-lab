@@ -9,6 +9,8 @@ import useInit from './hooks/use-init'
 import useThemeColor from './hooks/use-theme-color'
 import useTick from './hooks/use-tick'
 import Map from './map'
+import ScaleControl from './components/ScaleControl'
+import ThemeControl from './components/ThemeControl';
 
 const hTree = HTree(hierarchyData)
 
@@ -22,47 +24,20 @@ function App() {
   function scaleMap(scaleChange = 3) {
     const m = Map.scale(scaleChange)
     setScaleLevel(m)
-    // TODO move rotate
-    Map.rotate([2, 0])
   }
   // animate the map
-  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(scaleMap, 50)
+  const [setIsRunning, tick] = useTick(scaleMap, 50)
 
   return (
-    <div className="App">
-      {tick}
-      {isRunning ? 't' : 'f'}
-      {scaleLevel}
-      <div
-        style={{ display: 'none' }}
-      >
-        {layout}
-      </div>
-      <button onClick={() => setIsRunning(true)}>start</button>
-      <button onClick={() => setIsRunning(false)}>stop</button>
-      <button onClick={() => setMaxTicks(4)}>set max ticks</button>
-      <button
-        onClick={setThemeColor}
-      >
-        Color Theme
-      </button>
-      <div onClick={() => setIsRunning(false)}>
-        <button
-          onClick={() => scaleMap(100)}
-        >
-          scaleM
-        </button>
-        <button
-          onClick={() => scaleMap(-10)}
-        >
-          Scale In
-        </button>
-        <button
-          onClick={() => scaleMap(10)}
-        >
-          Scale Up
-        </button>
-      </div>
+    <div>
+      <ThemeControl
+        setThemeColor={setThemeColor}
+      />
+      <ScaleControl
+        setIsRunning={setIsRunning}
+        scaleMap={scaleMap}
+        scaleLevel={scaleLevel}
+      />
       <svg
         width="470" height="300"
       >
@@ -98,9 +73,13 @@ function App() {
           />
         </g>
       </svg>
-      <HierTree
+      {/* <HierTree
         color={themeColor}
-        hTree={hTree} />
+        hTree={hTree} /> */}
+      <div style={{ display: 'none' }}>
+        {layout}
+        {tick}
+      </div>
     </div>
   );
 }
