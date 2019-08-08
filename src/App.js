@@ -13,7 +13,7 @@ const hTree = HTree(hierarchyData)
 const graticule = geoGraticule()
   .step([10, 10]);
 const projection = geoOrthographic()
-  .scale(200)
+  .scale(250)
   .rotate([122, -45])
 const path = geoPath(projection)
 
@@ -25,12 +25,11 @@ function App() {
   // theme color
   const [themeColor, setThemeColor] = useThemeColor('green')
 
-  const [isRunning, setIsRunning] = useState(true)
-  // set the scale of the map
+  // // set the scale of the map
   const [scaleLevel, setScaleLevel] = useState(projection.scale())
-  const scaleStep = 80
+  const scaleStep = 10
   function zoomIn(e) {
-    if (projection.scale() < 200) return
+    if (projection.scale() < 100) return
     const sL = projection.scale() - scaleStep
     projection.scale(sL)
     setScaleLevel(sL)
@@ -50,30 +49,40 @@ function App() {
     setIsRunning(false)
     zoomOut()
   }
-  // use a deleyed function call to create an animation
-  useEffect((e) => {
-    if (isRunning) setTimeout(zoomOut, 1000)
-  }, [scaleLevel])
+  function useTick(callBack, maximumTicks = 10) {
+    const [maxTicks, setMaxTicks] = useState(maximumTicks)
+    const [isRunning, setIsRunning] = useState(true)
+    const [tick, setTick] = useState(0)
+    useEffect(() => {
+      callBack(tick)
+      if(tick >= maxTicks) setIsRunning(false)
+      else if (isRunning) setTimeout(() => setTick(tick + 1), 1000)
+  }, [tick, isRunning, maxTicks])
+    return [isRunning, setIsRunning, tick, setMaxTicks]
+  }
+  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(zoomOut, 100)
 
   return (
     <div className="App">
+      {tick}
+      {isRunning? 't' : 'f'}
+      {scaleLevel}
       <div
         style={{ display: 'none' }}
       >
         {layout}
       </div>
+      <button onClick={() => setMaxTicks(4)}>set max ticks</button>
       <button
         onClick={setThemeColor}
       >Color Theme
       </button>
       <button
         onClick={onScaleUp}
-      >zoom in</button>
+      >Scale In</button>
       <button
         onClick={onScaleDown}
-      >zoom out</button>
-      {scaleLevel}
-
+      >Scale Up</button>
       <svg
         width="470" height="300"
       >
