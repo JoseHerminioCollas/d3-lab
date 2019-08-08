@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 function useTick(callBack, maximumTicks = 10) {
-  const [maxTicks, setMaxTicks] = useState(maximumTicks)
+  const [maxTicks] = useState(maximumTicks)
   const [isRunning, setIsRunning] = useState(true)
   const [tick, setTick] = useState(0)
   useEffect(() => {
@@ -11,7 +11,7 @@ function useTick(callBack, maximumTicks = 10) {
       setTick(tick + 1)
     }, 500)
   }, [tick, isRunning, maxTicks])
-  return [isRunning, setIsRunning, tick, setMaxTicks]
+  return [setIsRunning, tick]
 }
 
 export default useTick
