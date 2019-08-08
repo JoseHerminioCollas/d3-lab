@@ -19,12 +19,14 @@ function App() {
   const [themeColor, setThemeColor] = useThemeColor('green')
   // scale the map
   const [scaleLevel, setScaleLevel] = useState(Map.projection.scale())
-  function scaleMap(scaleChange) {
+  function scaleMap(scaleChange = 3) {
     const m = Map.scale(scaleChange)
     setScaleLevel(m)
+    // TODO move rotate
+    Map.rotate([2, 0])
   }
   // animate the map
-  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(scaleMap, 5)
+  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(scaleMap, 50)
 
   return (
     <div className="App">
@@ -36,6 +38,8 @@ function App() {
       >
         {layout}
       </div>
+      <button onClick={() => setIsRunning(true)}>start</button>
+      <button onClick={() => setIsRunning(false)}>stop</button>
       <button onClick={() => setMaxTicks(4)}>set max ticks</button>
       <button
         onClick={setThemeColor}
