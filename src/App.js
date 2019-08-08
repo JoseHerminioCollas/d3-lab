@@ -7,6 +7,7 @@ import cd2 from './geojson/5m/2018/state.json'
 import earthData from './geojson/earth.json'
 import seattleData from './geojson/seattle.json'
 import useInit from './hooks/use-init'
+import useThemeColor from './hooks/use-theme-color'
 
 const hTree = HTree(hierarchyData)
 const graticule = geoGraticule()
@@ -21,6 +22,8 @@ function App() {
   const [layout] = useInit(() => {
     hTree.setTree()
   })
+  // theme color
+  const [themeColor, setThemeColor] = useThemeColor('green')
 
   const [isRunning, setIsRunning] = useState(true)
   // set the scale of the map
@@ -52,15 +55,6 @@ function App() {
     if (isRunning) setTimeout(zoomOut, 1000)
   }, [scaleLevel])
 
-  // theme color
-  const [themeColor, setThemeColor] = useState('green')
-  const onSetThemeColor = () => {
-    const colors = ['red', 'yellow', 'green']
-    const index = Math.round(Math.random() * 3)
-    const color = colors[index]
-    setThemeColor(color)
-  }
-
   return (
     <div className="App">
       <div
@@ -69,7 +63,7 @@ function App() {
         {layout}
       </div>
       <button
-        onClick={onSetThemeColor}
+        onClick={setThemeColor}
       >Color Theme
       </button>
       <button
