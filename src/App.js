@@ -8,6 +8,7 @@ import earthData from './geojson/earth.json'
 import seattleData from './geojson/seattle.json'
 import useInit from './hooks/use-init'
 import useThemeColor from './hooks/use-theme-color'
+import useTick from './hooks/use-tick'
 
 const hTree = HTree(hierarchyData)
 const graticule = geoGraticule()
@@ -24,48 +25,28 @@ function App() {
   })
   // theme color
   const [themeColor, setThemeColor] = useThemeColor('green')
-
-  // // set the scale of the map
+  // scale the map
   const [scaleLevel, setScaleLevel] = useState(projection.scale())
   const scaleStep = 10
-  function zoomIn(e) {
+  function scaleIn(e) {
     if (projection.scale() < 100) return
     const sL = projection.scale() - scaleStep
     projection.scale(sL)
     setScaleLevel(sL)
   }
-  function zoomOut() {
+  function scaleOut() {
     if (projection.scale() > 2000) return
     setScaleLevel(projection.scale() + scaleStep)
     const sL = projection.scale() + scaleStep
     projection.scale(sL)
     setScaleLevel(sL)
   }
-  const onScaleUp = () => {
-    setIsRunning(false)
-    zoomIn()
-  }
-  const onScaleDown = () => {
-    setIsRunning(false)
-    zoomOut()
-  }
-  function useTick(callBack, maximumTicks = 10) {
-    const [maxTicks, setMaxTicks] = useState(maximumTicks)
-    const [isRunning, setIsRunning] = useState(true)
-    const [tick, setTick] = useState(0)
-    useEffect(() => {
-      callBack(tick)
-      if(tick >= maxTicks) setIsRunning(false)
-      else if (isRunning) setTimeout(() => setTick(tick + 1), 1000)
-  }, [tick, isRunning, maxTicks])
-    return [isRunning, setIsRunning, tick, setMaxTicks]
-  }
-  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(zoomOut, 100)
+  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(scaleOut, 100)
 
   return (
     <div className="App">
       {tick}
-      {isRunning? 't' : 'f'}
+      {isRunning ? 't' : 'f'}
       {scaleLevel}
       <div
         style={{ display: 'none' }}
@@ -75,14 +56,21 @@ function App() {
       <button onClick={() => setMaxTicks(4)}>set max ticks</button>
       <button
         onClick={setThemeColor}
-      >Color Theme
+      >
+        Color Theme
       </button>
-      <button
-        onClick={onScaleUp}
-      >Scale In</button>
-      <button
-        onClick={onScaleDown}
-      >Scale Up</button>
+      <div onClick={() => setIsRunning(false)}>
+        <button
+          onClick={scaleIn}
+        >
+          Scale In
+        </button>
+        <button
+          onClick={scaleOut}
+        >
+          Scale Up
+        </button>
+      </div>
       <svg
         width="470" height="300"
       >
