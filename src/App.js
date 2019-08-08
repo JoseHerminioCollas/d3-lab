@@ -6,6 +6,7 @@ import HierTree from './components/HierTree'
 import cd2 from './geojson/5m/2018/state.json'
 import earthData from './geojson/earth.json'
 import seattleData from './geojson/seattle.json'
+import useInit from './hooks/use-init'
 
 const hTree = HTree(hierarchyData)
 const graticule = geoGraticule()
@@ -16,6 +17,11 @@ const projection = geoOrthographic()
 const path = geoPath(projection)
 
 function App() {
+  // call this only once, on load initLayout
+  const [layout] = useInit(() => {
+    hTree.setTree()
+  })
+
   const [isRunning, setIsRunning] = useState(true)
   // set the scale of the map
   const [scaleLevel, setScaleLevel] = useState(projection.scale())
@@ -45,12 +51,7 @@ function App() {
   useEffect((e) => {
     if (isRunning) setTimeout(zoomOut, 1000)
   }, [scaleLevel])
-  // call this only once, on load
-  const [layout, setLayout] = useState(0)
-  useEffect(() => {
-    hTree.setTree()
-    setLayout(3)
-  }, [])
+
   // theme color
   const [themeColor, setThemeColor] = useState('green')
   const onSetThemeColor = () => {
