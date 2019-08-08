@@ -1,6 +1,6 @@
 import React from 'react'
 
-const HierTree = ({ hTree }) => {
+const HierTree = ({ hTree, color = 'red' }) => {
   const offset = [10, 10]
   return (
     <svg
@@ -11,7 +11,7 @@ const HierTree = ({ hTree }) => {
         transform={`translate(${offset[0]} ${offset[1]})`}
       >
         <rect
-          fill="lightgreen"
+          fill={color}
           x="0"
           y="0"
           width="320"
