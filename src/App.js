@@ -17,7 +17,12 @@ const projection = geoOrthographic()
   .scale(250)
   .rotate([122, -45])
 const path = geoPath(projection)
-
+const Map = {
+  scale: (scaleChange = 10) => {
+    projection.scale(projection.scale() + scaleChange)
+    return projection.scale()
+  }
+}
 function App() {
   // call this only once, on load initLayout
   const [layout] = useInit(() => {
@@ -26,22 +31,13 @@ function App() {
   // theme color
   const [themeColor, setThemeColor] = useThemeColor('green')
   // scale the map
-  const [scaleLevel, setScaleLevel] = useState(projection.scale())
-  const scaleStep = 10
-  function scaleIn(e) {
-    if (projection.scale() < 100) return
-    const sL = projection.scale() - scaleStep
-    projection.scale(sL)
-    setScaleLevel(sL)
+  const [scaleLevel, setScaleLevel] = useState(projection.scale())  
+  function scaleM(scaleChange) {
+    const m = Map.scale(scaleChange)
+    setScaleLevel(m)
   }
-  function scaleOut() {
-    if (projection.scale() > 2000) return
-    setScaleLevel(projection.scale() + scaleStep)
-    const sL = projection.scale() + scaleStep
-    projection.scale(sL)
-    setScaleLevel(sL)
-  }
-  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(scaleOut, 100)
+  // animate the map
+  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(scaleM, 5)
 
   return (
     <div className="App">
@@ -60,14 +56,19 @@ function App() {
         Color Theme
       </button>
       <div onClick={() => setIsRunning(false)}>
-        <button
-          onClick={scaleIn}
+      <button
+          onClick={() => scaleM(100)}
         >
+          scaleM
+        </button>
+        <button
+          onClick={() => scaleM(-10)}
+          >
           Scale In
         </button>
         <button
-          onClick={scaleOut}
-        >
+          onClick={() => scaleM(10)}
+          >
           Scale Up
         </button>
       </div>
