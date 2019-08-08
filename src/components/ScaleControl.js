@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ScaleControl({setIsRunning, scaleMap, scaleLevel}) {
+function ScaleControl({ setIsRunning, scaleMap, scaleLevel }) {
   return (
     <section className="control scale-control">
       <fieldset>
@@ -12,18 +12,21 @@ function ScaleControl({setIsRunning, scaleMap, scaleLevel}) {
           scaleMap(100)
         }}>
           scaleM
-      </button>
-        <button onClick={() => {
-          setIsRunning(false)
-          scaleMap(-10)
-        }}>
-          Scale In
-    </button>
+        </button>
         <button
-          onClick={() => scaleMap(10)}
-        >
+          onClick={() => {
+            setIsRunning(false)
+            scaleMap(-30)
+          }}>
+          Scale In
+        </button>
+        <button
+          onClick={() => {
+            setIsRunning(false)
+            scaleMap(30)
+          }}>
           Scale Up
-    </button>
+        </button>
       </fieldset>
     </section>
   )

@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { hierarchyData } from './hierarchy'
 import HTree from './hierarchy-tree'
 import HierTree from './components/HierTree'
-import cd2 from './geojson/5m/2018/state.json'
-import earthData from './geojson/earth.json'
-import seattleData from './geojson/seattle.json'
 import useInit from './hooks/use-init'
 import useThemeColor from './hooks/use-theme-color'
 import useTick from './hooks/use-tick'
 import Map from './map'
 import ScaleControl from './components/ScaleControl'
-import ThemeControl from './components/ThemeControl';
+import ThemeControl from './components/ThemeControl'
+import GeoMap from './components/GeoMap'
 
 const hTree = HTree(hierarchyData)
 
@@ -26,10 +24,10 @@ function App() {
     setScaleLevel(m)
   }
   // animate the map
-  const [setIsRunning, tick] = useTick(scaleMap, 50)
+  const [setIsRunning, tick] = useTick(scaleMap, 20)
 
   return (
-    <div>
+    <div className="d3-lab">
       <ThemeControl
         setThemeColor={setThemeColor}
       />
@@ -38,41 +36,10 @@ function App() {
         scaleMap={scaleMap}
         scaleLevel={scaleLevel}
       />
-      <svg
-        width="470" height="300"
-      >
-        <rect width="960" height="500"
-          fill={themeColor} />
-        <g
-          width="960" height="500"
-          transform="scale(0.5) translate(0, 20)"
-        >
-          <path
-            d={Map.path(Map.graticule())}
-            stroke="#eee"
-            fill="transparent"
-            strokeWidth="3"
-          />
-          <path
-            d={Map.path(earthData)}
-            stroke="black"
-            fill="#fff"
-            strokeWidth="0"
-          />
-          <path
-            d={Map.path(cd2)}
-            stroke="#111"
-            fill="#999"
-            strokeWidth="2"
-          />
-          <path
-            d={Map.path(seattleData)}
-            stroke="red"
-            fill="transparent"
-            strokeWidth="21"
-          />
-        </g>
-      </svg>
+      <GeoMap 
+        Map={Map}
+        themeColor={themeColor}
+      />
       {/* <HierTree
         color={themeColor}
         hTree={hTree} /> */}
