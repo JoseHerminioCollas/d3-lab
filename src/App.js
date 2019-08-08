@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { geoGraticule, geoPath, geoOrthographic } from 'd3'
 import { hierarchyData } from './hierarchy'
 import HTree from './hierarchy-tree'
 import HierTree from './components/HierTree'
@@ -9,35 +8,23 @@ import seattleData from './geojson/seattle.json'
 import useInit from './hooks/use-init'
 import useThemeColor from './hooks/use-theme-color'
 import useTick from './hooks/use-tick'
+import Map from './map'
 
 const hTree = HTree(hierarchyData)
-const graticule = geoGraticule()
-  .step([10, 10]);
-const projection = geoOrthographic()
-  .scale(250)
-  .rotate([122, -45])
-const path = geoPath(projection)
-const Map = {
-  scale: (scaleChange = 10) => {
-    projection.scale(projection.scale() + scaleChange)
-    return projection.scale()
-  }
-}
+
 function App() {
   // call this only once, on load initLayout
-  const [layout] = useInit(() => {
-    hTree.setTree()
-  })
+  const [layout] = useInit(() => hTree.setTree())
   // theme color
   const [themeColor, setThemeColor] = useThemeColor('green')
   // scale the map
-  const [scaleLevel, setScaleLevel] = useState(projection.scale())  
-  function scaleM(scaleChange) {
+  const [scaleLevel, setScaleLevel] = useState(Map.projection.scale())
+  function scaleMap(scaleChange) {
     const m = Map.scale(scaleChange)
     setScaleLevel(m)
   }
   // animate the map
-  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(scaleM, 5)
+  const [isRunning, setIsRunning, tick, setMaxTicks] = useTick(scaleMap, 5)
 
   return (
     <div className="App">
@@ -56,19 +43,19 @@ function App() {
         Color Theme
       </button>
       <div onClick={() => setIsRunning(false)}>
-      <button
-          onClick={() => scaleM(100)}
+        <button
+          onClick={() => scaleMap(100)}
         >
           scaleM
         </button>
         <button
-          onClick={() => scaleM(-10)}
-          >
+          onClick={() => scaleMap(-10)}
+        >
           Scale In
         </button>
         <button
-          onClick={() => scaleM(10)}
-          >
+          onClick={() => scaleMap(10)}
+        >
           Scale Up
         </button>
       </div>
@@ -82,25 +69,25 @@ function App() {
           transform="scale(0.5) translate(0, 20)"
         >
           <path
-            d={path(graticule())}
+            d={Map.path(Map.graticule())}
             stroke="#eee"
             fill="transparent"
             strokeWidth="3"
           />
           <path
-            d={path(earthData)}
+            d={Map.path(earthData)}
             stroke="black"
             fill="#fff"
             strokeWidth="0"
           />
           <path
-            d={path(cd2)}
+            d={Map.path(cd2)}
             stroke="#111"
             fill="#999"
             strokeWidth="2"
           />
           <path
-            d={path(seattleData)}
+            d={Map.path(seattleData)}
             stroke="red"
             fill="transparent"
             strokeWidth="21"
