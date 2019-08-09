@@ -1,5 +1,5 @@
 import React from 'react';
-import { schemeCategory10, scaleOrdinal, schemeAccent } from 'd3'
+import { schemeCategory10 } from 'd3'
 const style = {
   container: {
     display: 'flex',
@@ -20,7 +20,7 @@ function ThemeControl({ setThemeColor }) {
       className="control"
       style={style.container}
     >
-      {schemeAccent.map(
+      {schemeCategory10.map(
         schemeElement => (
           <div
             onClick={() => setThemeColor(schemeElement)}

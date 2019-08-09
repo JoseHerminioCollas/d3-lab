@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { schemeCategory10, scaleOrdinal, schemeAccent } from 'd3'
+import { schemeCategory10, scaleOrdinal } from 'd3'
 
 const theme = {
   foreground: ['white'],
@@ -10,7 +10,7 @@ const themeColorDomain = [1, 2, 3, 4, 5, 6, 7, 8]
 const themeColors = function createThemeColors() {
   return scaleOrdinal()
     .domain(themeColorDomain)
-    .range(schemeAccent)
+    .range(schemeCategory10)
 }()
 theme.foreground.unshift(themeColors(1))
 theme.background.unshift(themeColors(3))
@@ -24,9 +24,9 @@ function useThemeColor() {
     const themeColors = function createThemeColors() {
       return scaleOrdinal()
         .domain(themeColorDomain)
-        .range(schemeAccent)
+        .range(schemeCategory10)
     }()
-    // setThemeColorInner.background = themeColorDomain
+
     const newTheme = Object.assign({}, themeColor, {
       foreground: [newColor],
       background: [themeColors(3)]
