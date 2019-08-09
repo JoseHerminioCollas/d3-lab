@@ -16,7 +16,8 @@ section.control-container {
   display: flex;
   opacity: 0.9;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   position: fixed;
   background: #333;
@@ -33,6 +34,7 @@ section.control {
   font-size: 0.8em;
   background: #111;
   padding: 3px 6px;
+  margin: 0 3px;
   bottom: 0;
 }
 section.control button {
