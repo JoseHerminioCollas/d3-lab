@@ -23,11 +23,29 @@ function App() {
     const m = Map.scale(scaleChange)
     setScaleLevel(m)
   }
+  // rotate the map
+  const [rotatation, setRotation] = useState(Map.projection.rotate())
+  function rotateMap(rotatationChange = 10) {
+    const rLng = Map.projection.rotate()[0] + rotatationChange
+    const r = Map.projection.rotate([rLng, Map.projection.rotate()[1]])
+    setRotation(r)
+  }
   // animate the map
-  const [setIsRunning, tick] = useTick(scaleMap, 20)
+  const [setIsRunning, tick] = useTick(() => {
+    if (tick < 10) scaleMap(2)
+    rotateMap(1)
+  }, 1000)
 
   return (
     <div className="d3-lab">
+      <section className="control rotate-control">
+        <fieldset>
+          <legend>Rotatation</legend>
+          <button onClick={() => rotateMap(10)}>right</button>
+          <button onClick={() => rotateMap(-10)}>left</button>
+          {rotatation[0].toFixed(1) + ', ' + rotatation[1].toFixed(1)}
+        </fieldset>
+      </section>
       <ThemeControl
         setThemeColor={setThemeColor}
       />
@@ -36,7 +54,7 @@ function App() {
         scaleMap={scaleMap}
         scaleLevel={scaleLevel}
       />
-      <GeoMap 
+      <GeoMap
         Map={Map}
         themeColor={themeColor}
       />

@@ -29,6 +29,11 @@ section.theme-control{
   position: absolute;
   left: 0;
 }
+section.rotate-control {
+  position: absolute;
+  left: 0;
+  bottom: 80px;
+}
 button {
   cursor: pointer;
 }
