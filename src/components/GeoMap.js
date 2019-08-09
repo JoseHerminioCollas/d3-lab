@@ -3,10 +3,11 @@ import cd2 from '../geojson/5m/2018/state.json'
 import earthData from '../geojson/earth.json'
 import seattleData from '../geojson/seattle.json'
 
-function GeoMap({ Map, themeColor }) {
+function GeoMap({ Map, themeColor, clickHandler }) {
   return (
     <svg className="geo-map"
       width="600" height="600"
+      onClick={clickHandler}
     >
       <rect width="660" height="600"
         fill="black" />

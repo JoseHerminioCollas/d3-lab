@@ -10,6 +10,7 @@ import ScaleControl from './components/ScaleControl'
 import ThemeControl from './components/ThemeControl'
 import GeoMap from './components/GeoMap'
 import './iconfont/material-icons.css'
+import { schemeCategory10 } from 'd3'
 
 const hTree = HTree(hierarchyData)
 
@@ -39,7 +40,8 @@ function App() {
 
   return (
     <div className="d3-lab">
-      <section className="control-container">
+      <section
+        className="control-container">
         <section className="control rotate-control">
           {/* <h4>Rotatation</h4> */}
           <div style={{ display: 'none' }}>
@@ -70,6 +72,11 @@ function App() {
         />
       </section>
       <GeoMap
+        clickHandler={() => {
+          // toggle the value
+          isRunning && setIsRunning(false)
+          !isRunning && setIsRunning(true)
+        }}
         Map={Map}
         themeColor={themeColor}
       />
