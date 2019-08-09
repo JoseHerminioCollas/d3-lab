@@ -24,18 +24,18 @@ function GeoMap({ Map, themeColor, clickHandler }) {
         <path
           d={Map.path(earthData)}
           stroke="black"
-          fill={themeColor}
+          fill={themeColor.foreground[0]}
           strokeWidth="0"
         />
         <path
           d={Map.path(cd2)}
           stroke="#111"
-          fill={themeColor}
+          fill={themeColor.background[0]}
           strokeWidth="2"
         />
         <path
           d={Map.path(seattleData)}
-          stroke="red"
+          stroke={themeColor.accent[0]}
           fill="transparent"
           strokeWidth="21"
         />

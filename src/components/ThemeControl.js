@@ -1,9 +1,10 @@
 import React from 'react';
-import { schemeCategory10 } from 'd3'
+import { schemeCategory10, scaleOrdinal, schemeAccent } from 'd3'
 const style = {
   container: {
     display: 'flex',
     flexDirection: 'row',
+    color: 'white',
     height: '30px',
     padding: '9px',
   },
@@ -12,16 +13,17 @@ const style = {
     width: '20px',
   }
 }
+
 function ThemeControl({ setThemeColor }) {
   return (
     <section
       className="control"
       style={style.container}
-      onClick={setThemeColor}
     >
-      {schemeCategory10.map(
+      {schemeAccent.map(
         schemeElement => (
           <div
+            onClick={() => setThemeColor(schemeElement)}
             key={schemeElement}
             style={
               Object.assign(

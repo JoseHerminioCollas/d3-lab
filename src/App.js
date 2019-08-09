@@ -10,15 +10,12 @@ import ScaleControl from './components/ScaleControl'
 import ThemeControl from './components/ThemeControl'
 import GeoMap from './components/GeoMap'
 import './iconfont/material-icons.css'
-import { schemeCategory10 } from 'd3'
 
 const hTree = HTree(hierarchyData)
 
 function App() {
   // call this only once, on load initLayout
   const [layout] = useInit(() => hTree.setTree())
-  // theme color
-  const [themeColor, setThemeColor] = useThemeColor('green')
   // scale the map
   const [scaleLevel, setScaleLevel] = useState(Map.projection.scale())
   function scaleMap(scaleChange = 3) {
@@ -38,12 +35,14 @@ function App() {
     rotateMap(1)
   }, 1000)
 
+  // theme color
+  const [themeColor, setThemeColor] = useThemeColor()
+
   return (
     <div className="d3-lab">
       <section
         className="control-container">
         <section className="control rotate-control">
-          {/* <h4>Rotatation</h4> */}
           <div style={{ display: 'none' }}>
             {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
           </div>
