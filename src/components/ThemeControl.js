@@ -3,10 +3,13 @@ import React from 'react';
 function ThemeControl({ setThemeColor }) {
   return (
     <section className="control theme-control">
-      <fieldset>
-        <legend>Theme</legend>
-        <button onClick={setThemeColor}>Color Theme</button>
-      </fieldset>
+      <h4>Theme</h4>
+      <button
+        className="material-icons"
+        onClick={setThemeColor}
+      >
+        color_lens
+      </button>
     </section>
   )
 }

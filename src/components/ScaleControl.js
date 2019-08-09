@@ -3,29 +3,26 @@ import React from 'react';
 function ScaleControl({ setIsRunning, scaleMap, scaleLevel }) {
   return (
     <section className="control scale-control">
-      <fieldset>
-        <legend>Scale: {scaleLevel}</legend>
-        <button onClick={() => {
+      <h4>Scale</h4>
+      <div style={{ display: 'none' }}>
+        {scaleLevel}
+      </div>
+      <button
+        className="material-icons"
+        onClick={() => {
           setIsRunning(false)
-          scaleMap(100)
+          scaleMap(-30)
         }}>
-          scaleM
+        zoom_out
         </button>
-        <button
-          onClick={() => {
-            setIsRunning(false)
-            scaleMap(-30)
-          }}>
-          Scale In
+      <button
+        className="material-icons"
+        onClick={() => {
+          setIsRunning(false)
+          scaleMap(30)
+        }}>
+        zoom_in
         </button>
-        <button
-          onClick={() => {
-            setIsRunning(false)
-            scaleMap(30)
-          }}>
-          Scale Up
-        </button>
-      </fieldset>
     </section>
   )
 }

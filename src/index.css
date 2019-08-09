@@ -15,15 +15,35 @@ body {
   box-shadow: 10px 10px 30px 30px #222;
 }
 section.control {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 0.8em;
   background: #111;
-  color: white;
-  padding: 5px;
+  color: #ccc;
+  padding: 6px;
   bottom: 0;
-  border-radius: 2px;
+}
+section.control h4 {
+  font-size: 0.9em;
+  margin: 0;
+  text-align: left;
+}
+section.control button {
+  margin: 3px 0;
+  cursor: pointer;
+}
+section.control fieldset {
+  padding: 3px;
+  border: 1px solid #555;
 }
 section.scale-control{
   position: absolute;
+  justify-content: flex-end;
   right: 0;
+}
+section.scale-control h4 {
+  text-align: right;
 }
 section.theme-control{
   position: absolute;
@@ -37,9 +57,9 @@ section.rotate-control {
 section.animate-control {
   position: absolute;
   right: 0;
-  bottom: 70px;
+  bottom: 150px;
+  text-align: left;
 }
-
-button {
-  cursor: pointer;
+section.animate-control h4{
+  text-align: right;
 }

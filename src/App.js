@@ -9,6 +9,7 @@ import Map from './map'
 import ScaleControl from './components/ScaleControl'
 import ThemeControl from './components/ThemeControl'
 import GeoMap from './components/GeoMap'
+import './iconfont/material-icons.css'
 
 const hTree = HTree(hierarchyData)
 
@@ -38,28 +39,25 @@ function App() {
 
   return (
     <div className="d3-lab">
-      <span class="material-icons">face</span>
       <section className="control rotate-control">
-        <fieldset>
-          <legend>Rotatation &nbsp;
-            <small>
-              {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
-            </small>
-          </legend>
-          <button onClick={() => rotateMap(10)}>right</button>
-          <button onClick={() => rotateMap(-10)}>left</button>
-        </fieldset>
+        <h4>Rotatation</h4>
+        <div style={{ display: 'none' }}>
+          {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
+        </div>
+        <button className="material-icons" onClick={() => rotateMap(10)}>
+          rotate_left
+          </button>
+        <button className="material-icons" onClick={() => rotateMap(-10)}>
+          rotate_right
+          </button>
       </section>
       <section className="control animate-control">
-        <fieldset>
-          <legend>Animate</legend>
-          {!isRunning &&
-            <button onClick={() => setIsRunning(true)}>start</button>
-          }
-          {isRunning &&
-            <button onClick={() => setIsRunning(false)}>stop</button>
-          }
-        </fieldset>
+        {!isRunning &&
+          <button className="material-icons" onClick={() => setIsRunning(true)}>play_arrow</button>
+        }
+        {isRunning &&
+          <button className="material-icons" onClick={() => setIsRunning(false)}>pause</button>
+        }
       </section>
       <ThemeControl
         setThemeColor={setThemeColor}
