@@ -38,6 +38,7 @@ function App() {
 
   return (
     <div className="d3-lab">
+      <span class="material-icons">face</span>
       <section className="control rotate-control">
         <fieldset>
           <legend>Rotatation &nbsp;
