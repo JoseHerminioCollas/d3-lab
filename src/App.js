@@ -40,10 +40,13 @@ function App() {
     <div className="d3-lab">
       <section className="control rotate-control">
         <fieldset>
-          <legend>Rotatation</legend>
+          <legend>Rotatation &nbsp;
+            <small>
+              {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
+            </small>
+          </legend>
           <button onClick={() => rotateMap(10)}>right</button>
           <button onClick={() => rotateMap(-10)}>left</button>
-          {rotatation[0].toFixed(1) + ', ' + rotatation[1].toFixed(1)}
         </fieldset>
       </section>
       <section className="control animate-control">
