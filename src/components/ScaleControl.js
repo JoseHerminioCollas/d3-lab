@@ -3,7 +3,7 @@ import React from 'react';
 function ScaleControl({ setIsRunning, scaleMap, scaleLevel }) {
   return (
     <section className="control scale-control">
-      <h4>Scale</h4>
+      {/* <h4>Scale</h4> */}
       <div style={{ display: 'none' }}>
         {scaleLevel}
       </div>

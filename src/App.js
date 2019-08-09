@@ -39,38 +39,41 @@ function App() {
 
   return (
     <div className="d3-lab">
-      <section className="control rotate-control">
-        <h4>Rotatation</h4>
-        <div style={{ display: 'none' }}>
-          {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
-        </div>
-        <button className="material-icons" onClick={() => rotateMap(10)}>
-          rotate_left
+      <section className="control-container">
+        <section className="control rotate-control">
+          {/* <h4>Rotatation</h4> */}
+          <div style={{ display: 'none' }}>
+            {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
+          </div>
+          <button className="material-icons" onClick={() => rotateMap(10)}>
+            rotate_left
           </button>
-        <button className="material-icons" onClick={() => rotateMap(-10)}>
-          rotate_right
+          <button className="material-icons" onClick={() => rotateMap(-10)}>
+            rotate_right
           </button>
+        </section>
+        <section className="control animate-control">
+          {!isRunning &&
+            <button className="material-icons" onClick={() => setIsRunning(true)}>play_arrow</button>
+          }
+          {isRunning &&
+            <button className="material-icons" onClick={() => setIsRunning(false)}>pause</button>
+          }
+        </section>
+        <ThemeControl
+          setThemeColor={setThemeColor}
+        />
+        <ScaleControl
+          setIsRunning={setIsRunning}
+          scaleMap={scaleMap}
+          scaleLevel={scaleLevel}
+        />
       </section>
-      <section className="control animate-control">
-        {!isRunning &&
-          <button className="material-icons" onClick={() => setIsRunning(true)}>play_arrow</button>
-        }
-        {isRunning &&
-          <button className="material-icons" onClick={() => setIsRunning(false)}>pause</button>
-        }
-      </section>
-      <ThemeControl
-        setThemeColor={setThemeColor}
-      />
-      <ScaleControl
-        setIsRunning={setIsRunning}
-        scaleMap={scaleMap}
-        scaleLevel={scaleLevel}
-      />
       <GeoMap
         Map={Map}
         themeColor={themeColor}
       />
+
       {/* <HierTree
         color={themeColor}
         hTree={hTree} /> */}

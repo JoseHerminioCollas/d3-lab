@@ -5,61 +5,35 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #111;
+  background: black;
 }
 .d3-lab {
   display: flex;
   justify-content: center;
 }
-.geo-map {
-  box-shadow: 10px 10px 30px 30px #222;
+section.control-container {
+  display: flex;
+  opacity: 0.9;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  background: #333;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 3px;
 }
 section.control {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-end;
+  border-radius: 6px;
   font-size: 0.8em;
   background: #111;
-  color: #ccc;
-  padding: 6px;
+  padding: 3px 6px;
   bottom: 0;
 }
-section.control h4 {
-  font-size: 0.9em;
-  margin: 0;
-  text-align: left;
-}
 section.control button {
-  margin: 3px 0;
+  margin: 3px;
   cursor: pointer;
-}
-section.control fieldset {
-  padding: 3px;
-  border: 1px solid #555;
-}
-section.scale-control{
-  position: absolute;
-  justify-content: flex-end;
-  right: 0;
-}
-section.scale-control h4 {
-  text-align: right;
-}
-section.theme-control{
-  position: absolute;
-  left: 0;
-}
-section.rotate-control {
-  position: absolute;
-  left: 0;
-  bottom: 80px;
-}
-section.animate-control {
-  position: absolute;
-  right: 0;
-  bottom: 150px;
-  text-align: left;
-}
-section.animate-control h4{
-  text-align: right;
 }
