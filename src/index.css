@@ -34,6 +34,12 @@ section.rotate-control {
   left: 0;
   bottom: 80px;
 }
+section.animate-control {
+  position: absolute;
+  right: 0;
+  bottom: 70px;
+}
+
 button {
   cursor: pointer;
 }

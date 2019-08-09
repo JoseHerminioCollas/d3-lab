@@ -31,7 +31,7 @@ function App() {
     setRotation(r)
   }
   // animate the map
-  const [setIsRunning, tick] = useTick(() => {
+  const [isRunning, setIsRunning, tick] = useTick(() => {
     if (tick < 10) scaleMap(2)
     rotateMap(1)
   }, 1000)
@@ -44,6 +44,17 @@ function App() {
           <button onClick={() => rotateMap(10)}>right</button>
           <button onClick={() => rotateMap(-10)}>left</button>
           {rotatation[0].toFixed(1) + ', ' + rotatation[1].toFixed(1)}
+        </fieldset>
+      </section>
+      <section className="control animate-control">
+        <fieldset>
+          <legend>Animate</legend>
+          {!isRunning &&
+            <button onClick={() => setIsRunning(true)}>start</button>
+          }
+          {isRunning &&
+            <button onClick={() => setIsRunning(false)}>stop</button>
+          }
         </fieldset>
       </section>
       <ThemeControl

@@ -5,8 +5,6 @@ function ScaleControl({ setIsRunning, scaleMap, scaleLevel }) {
     <section className="control scale-control">
       <fieldset>
         <legend>Scale: {scaleLevel}</legend>
-        <button onClick={() => setIsRunning(true)}>start</button>
-        <button onClick={() => setIsRunning(false)}>stop</button>
         <button onClick={() => {
           setIsRunning(false)
           scaleMap(100)

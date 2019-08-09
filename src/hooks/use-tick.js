@@ -11,7 +11,7 @@ function useTick(callBack, maximumTicks = 10) {
       setTick(tick + 1)
     }, 500)
   }, [tick, isRunning, maxTicks])
-  return [setIsRunning, tick]
+  return [isRunning, setIsRunning, tick]
 }
 
 export default useTick
