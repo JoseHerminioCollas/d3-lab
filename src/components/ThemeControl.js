@@ -1,5 +1,5 @@
 import React from 'react';
-import { schemeCategory10 } from 'd3'
+
 const style = {
   container: {
     display: 'flex',
@@ -15,7 +15,7 @@ const style = {
   }
 }
 
-function ThemeControl({ setSheetName, menuOptions }) {
+function ThemeControl({ sheetName, setSheetName, menuOptions }) {
   return (
     <section
       className="control"
@@ -31,8 +31,9 @@ function ThemeControl({ setSheetName, menuOptions }) {
               Object.assign(
                 {},
                 style.element,
-                { background: option.color })
+                { background: option.color, textAlign: 'center' })
             }>
+              {sheetName === option.keyValue ? '*' : ''}
           </div>
         )
       )}

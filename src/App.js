@@ -56,24 +56,6 @@ function App() {
       <section
         className="control-container">
         <section className="control rotate-control">
-          <button
-            disabled={sheetName === 'defaultStyle'}
-            onClick={() => setSheetName('defaultStyle')}
-          >
-            gray
-          </button>
-          <button
-            disabled={sheetName === 'styleB'}
-            onClick={() => setSheetName('styleB')}
-          >
-            set theme B
-          </button>
-          <button
-            disabled={sheetName === 'blueStyle'}
-            onClick={() => setSheetName('blueStyle')}
-          >
-            blue
-          </button>
           <div style={{ display: 'none' }}>
             {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
           </div>
@@ -93,6 +75,7 @@ function App() {
           }
         </section>
         <ThemeControl
+          sheetName={sheetName}
           setSheetName={setSheetName}
           menuOptions={menuOptions}
         />
