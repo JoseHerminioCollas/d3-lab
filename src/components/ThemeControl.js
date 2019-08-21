@@ -9,27 +9,29 @@ const style = {
     padding: '9px',
   },
   element: {
+    cursor: 'pointer',
     background: 'black',
     width: '20px',
   }
 }
 
-function ThemeControl({ setThemeColor }) {
+function ThemeControl({ setSheetName, menuOptions }) {
   return (
     <section
       className="control"
       style={style.container}
     >
-      {schemeCategory10.map(
-        schemeElement => (
+      {menuOptions.map(
+        option => (
           <div
-            onClick={() => setThemeColor(schemeElement)}
-            key={schemeElement}
+            onClick={() => setSheetName(option.keyValue)}
+            key={option.keyValue}
+            title={option.label}
             style={
               Object.assign(
                 {},
                 style.element,
-                { background: schemeElement })
+                { background: option.color })
             }>
           </div>
         )

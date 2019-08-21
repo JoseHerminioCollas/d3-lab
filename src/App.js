@@ -12,7 +12,7 @@ import GeoMap from './components/GeoMap'
 import './iconfont/material-icons.css'
 import jss from 'jss'
 import preset from 'jss-preset-default'
-import themeFactory from './theme-factory'
+import themeFactory, { menuOptions } from './theme-factory'
 
 jss.setup(preset())
 
@@ -93,7 +93,8 @@ function App() {
           }
         </section>
         <ThemeControl
-        // setThemeColor={setThemeColor}
+          setSheetName={setSheetName}
+          menuOptions={menuOptions}
         />
         <ScaleControl
           setIsRunning={setIsRunning}

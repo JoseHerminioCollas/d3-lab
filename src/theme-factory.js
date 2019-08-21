@@ -1,5 +1,17 @@
 import { interpolateBlues } from 'd3'
 
+const styleTypes = {
+  GRAY: 'GRAY',
+  BLUE: 'BLUE',
+  GREEN: 'GREEN',
+  LIGHT: 'LIGHT',
+  DARK: 'DARK',
+  RAINBOW: 'RAINBOW',
+}
+const menuOptions = [
+  { label: 'Gray', color: 'gray', keyValue: 'defaultStyle' },
+  { label: 'Blue', color: 'blue', keyValue: 'blueStyle' },
+]
 const defaultStyle = {
   mapContainer: {
     stroke: 'gray',
@@ -61,4 +73,5 @@ const styles = {
 function themeFactory(themeName = 'defaultStyle') {
   return styles[themeName]
 }
+export { styleTypes, menuOptions }
 export default themeFactory
