@@ -41,12 +41,12 @@ function App() {
   }, 1000)
 
   // theme color useCssSheet()
-  let sheet = jss.createStyleSheet(themeFactory('styleA'))
+  const [sheetName, setSheetName] = useState('styleA')
+  let sheet = jss.createStyleSheet(themeFactory(sheetName))
   sheet.attach()
   const [cssSheet, setCssSheet] = useState(sheet)
-  const [sheetName, setSheetName] = useState('styleA')
   useEffect(() => {
-    let newSheet = jss.createStyleSheet(themeFactory('styleB'))
+    let newSheet = jss.createStyleSheet(themeFactory(sheetName))
     newSheet.attach()
     setCssSheet(newSheet)
   }, [sheetName])
@@ -56,6 +56,7 @@ function App() {
       <section
         className="control-container">
         <section className="control rotate-control">
+          {sheetName}
           <button
             disabled={sheetName === 'styleA'}
             onClick={() => setSheetName('styleA')}

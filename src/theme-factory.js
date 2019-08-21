@@ -1,7 +1,7 @@
 import { scaleOrdinal, schemeAccent } from 'd3'
 
 var accent = scaleOrdinal(schemeAccent);
-console.log(accent)
+console.log(accent(0.5))
 
 const style = {
   main: {
@@ -43,15 +43,15 @@ const style = {
     height: '600px',
   }
 }
-
 const styles = {
+  default: style,
   styleA: style,
   styleB: Object.assign(
     {},
     style,
     {
       mapContainer: {
-        fill: 'red',
+        fill: 'green',
         stroke: 'blue',
         width: '600px',
         height: '600px',
@@ -64,5 +64,8 @@ const styles = {
       },
     })
 }
-
-export default ()  => styles['styleA']
+function themeFactory(themeName = 'default') {
+  console.log(themeName)
+  return styles[themeName]
+}
+export default themeFactory
