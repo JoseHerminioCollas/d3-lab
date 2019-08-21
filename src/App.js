@@ -41,7 +41,7 @@ function App() {
   }, 1000)
 
   // theme color useCssSheet()
-  const [sheetName, setSheetName] = useState('defaultStyle')
+  const [sheetName, setSheetName] = useState('blueStyle')
   let sheet = jss.createStyleSheet(themeFactory(sheetName))
   sheet.attach()
   const [cssSheet, setCssSheet] = useState(sheet)

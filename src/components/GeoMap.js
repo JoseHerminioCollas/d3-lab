@@ -4,7 +4,6 @@ import earthData from '../geojson/earth.json'
 import seattleData from '../geojson/seattle.json'
 
 function GeoMap({ Map, themeColor, clickHandler, cssClasses }) {
-  // console.log(cssClasses)
   return (
     <svg
       className={cssClasses.mapContainer}
@@ -31,7 +30,7 @@ function GeoMap({ Map, themeColor, clickHandler, cssClasses }) {
         />
         <path
           d={Map.path(seattleData)}
-          className={cssClasses.seattle}
+          className={cssClasses.city}
         />
       </g>
     </svg>
