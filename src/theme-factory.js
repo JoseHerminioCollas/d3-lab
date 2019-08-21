@@ -1,8 +1,5 @@
 import { scaleOrdinal, schemeAccent } from 'd3'
-
-var accent = scaleOrdinal(schemeAccent);
-console.log(accent(0.5))
-
+// var accent = scaleOrdinal(schemeAccent);
 const defaultStyle = {
   main: {
     display: 'flex',
@@ -43,19 +40,21 @@ const defaultStyle = {
     height: '600px',
   }
 }
-// const styleB = Object.assign({}, defaultStyle)
 const styleB = JSON.parse(JSON.stringify(defaultStyle))
-console.log('XXX', styleB)
-
 for (const prop in styleB) {
-  console.log(prop)
   styleB[prop].fill = "red"
   styleB[prop].stroke = "blue"
+}
+const blueStyle = JSON.parse(JSON.stringify(defaultStyle))
+for (const prop in blueStyle) {
+  blueStyle[prop].fill = "darkblue"
+  blueStyle[prop].stroke = "blue"
 }
 
 const styles = {
   defaultStyle,
   styleB,
+  blueStyle,
 }
 function themeFactory(themeName = 'defaultStyle') {
   console.log('AAA',styles['defaultStyle'])

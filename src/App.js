@@ -56,12 +56,11 @@ function App() {
       <section
         className="control-container">
         <section className="control rotate-control">
-          {sheetName}
           <button
             disabled={sheetName === 'defaultStyle'}
             onClick={() => setSheetName('defaultStyle')}
           >
-            default
+            gray
           </button>
           <button
             disabled={sheetName === 'styleB'}
@@ -69,7 +68,12 @@ function App() {
           >
             set theme B
           </button>
-
+          <button
+            disabled={sheetName === 'blueStyle'}
+            onClick={() => setSheetName('blueStyle')}
+          >
+            blue
+          </button>
           <div style={{ display: 'none' }}>
             {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
           </div>
