@@ -41,7 +41,7 @@ function App() {
   }, 1000)
 
   // theme color useCssSheet()
-  const [sheetName, setSheetName] = useState('styleA')
+  const [sheetName, setSheetName] = useState('defaultStyle')
   let sheet = jss.createStyleSheet(themeFactory(sheetName))
   sheet.attach()
   const [cssSheet, setCssSheet] = useState(sheet)
@@ -58,10 +58,10 @@ function App() {
         <section className="control rotate-control">
           {sheetName}
           <button
-            disabled={sheetName === 'styleA'}
-            onClick={() => setSheetName('styleA')}
+            disabled={sheetName === 'defaultStyle'}
+            onClick={() => setSheetName('defaultStyle')}
           >
-            set theme A
+            default
           </button>
           <button
             disabled={sheetName === 'styleB'}

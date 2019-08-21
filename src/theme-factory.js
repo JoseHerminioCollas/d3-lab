@@ -3,7 +3,7 @@ import { scaleOrdinal, schemeAccent } from 'd3'
 var accent = scaleOrdinal(schemeAccent);
 console.log(accent(0.5))
 
-const style = {
+const defaultStyle = {
   main: {
     display: 'flex',
     color: 'white',
@@ -43,29 +43,22 @@ const style = {
     height: '600px',
   }
 }
-const styles = {
-  default: style,
-  styleA: style,
-  styleB: Object.assign(
-    {},
-    style,
-    {
-      mapContainer: {
-        fill: 'green',
-        stroke: 'blue',
-        width: '600px',
-        height: '600px',
-      },
-      state: {
-        stroke: 'green',
-        fill: 'transparent',
-        color: 'orange',
-        strokeWidth: 3,
-      },
-    })
+// const styleB = Object.assign({}, defaultStyle)
+const styleB = JSON.parse(JSON.stringify(defaultStyle))
+console.log('XXX', styleB)
+
+for (const prop in styleB) {
+  console.log(prop)
+  styleB[prop].fill = "red"
+  styleB[prop].stroke = "blue"
 }
-function themeFactory(themeName = 'default') {
-  console.log(themeName)
+
+const styles = {
+  defaultStyle,
+  styleB,
+}
+function themeFactory(themeName = 'defaultStyle') {
+  console.log('AAA',styles['defaultStyle'])
   return styles[themeName]
 }
 export default themeFactory
