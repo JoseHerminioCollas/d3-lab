@@ -1,43 +1,37 @@
 import React from 'react'
-import cd2 from '../geojson/5m/2018/state.json'
+import stateData from '../geojson/5m/2018/state.json'
 import earthData from '../geojson/earth.json'
 import seattleData from '../geojson/seattle.json'
 
-function GeoMap({ Map, themeColor, clickHandler }) {
+function GeoMap({ Map, themeColor, clickHandler, cssClasses }) {
+  // console.log(cssClasses)
   return (
-    <svg className="geo-map"
-      width="600" height="600"
+    <svg
+      className={cssClasses.mapContainer}
       onClick={clickHandler}
     >
-      <rect width="660" height="600"
-        fill="black" />
+      <rect
+        className={cssClasses.mapContainer}
+      />
       <g
         width="960" height="500"
         transform="scale(0.6) translate(0, 150)"
       >
         <path
           d={Map.path(Map.graticule())}
-          stroke="#eee"
-          fill="transparent"
-          strokeWidth="3"
+          className={cssClasses.graticule}
         />
         <path
           d={Map.path(earthData)}
-          stroke="black"
-          fill={themeColor.foreground[0]}
-          strokeWidth="0"
+          className={cssClasses.earth}
         />
         <path
-          d={Map.path(cd2)}
-          stroke="#111"
-          fill={themeColor.background[0]}
-          strokeWidth="2"
+          d={Map.path(stateData)}
+          className={cssClasses.state}
         />
         <path
           d={Map.path(seattleData)}
-          stroke={themeColor.accent[0]}
-          fill="transparent"
-          strokeWidth="21"
+          className={cssClasses.seattle}
         />
       </g>
     </svg>

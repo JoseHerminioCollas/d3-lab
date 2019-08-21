@@ -11,6 +11,73 @@ import ThemeControl from './components/ThemeControl'
 import GeoMap from './components/GeoMap'
 import './iconfont/material-icons.css'
 
+import jss from 'jss'
+import preset from 'jss-preset-default'
+
+jss.setup(preset())
+
+const style = {
+  main: {
+    display: 'flex',
+    color: 'white',
+    background: 'gray',
+  },
+  accent: {
+    color: 'red',
+  },
+  graticule: {
+    stroke: 'white',
+    fill: 'transparent',
+    color: 'blue',
+    strokeWidth: 3,
+  },
+  state: {
+    stroke: 'white',
+    fill: 'transparent',
+    color: 'blue',
+    strokeWidth: 3,
+  },
+  seattle: {
+    stroke: 'red',
+    fill: 'transparent',
+    color: 'blue',
+    strokeWidth: 13,
+  },
+  earth: {
+    color: 'green',
+    stroke: "black",
+    fill: "gray",
+    strokeWidth: 3,
+  },
+  mapContainer: {
+    fill: 'black',
+    stroke: 'blue',
+    width: '600px',
+    height: '600px',
+  }
+}
+
+const styles = {
+  styleA: style,
+  styleB: Object.assign(
+    {},
+    style,
+    {
+      mapContainer: {
+        fill: 'red',
+        stroke: 'blue',
+        width: '600px',
+        height: '600px',
+      },
+      state: {
+        stroke: 'green',
+        fill: 'transparent',
+        color: 'orange',
+        strokeWidth: 3,
+      },
+    })
+}
+
 const hTree = HTree(hierarchyData)
 
 function App() {
@@ -35,14 +102,35 @@ function App() {
     rotateMap(1)
   }, 1000)
 
-  // theme color
-  const [themeColor, setThemeColor] = useThemeColor()
+  // theme color useCssSheet()
+  let sheet = jss.createStyleSheet(styles['styleA'])
+  sheet.attach()
+  const [cssSheet, setCssSheet] = useState(sheet)
+  const [sheetName, setSheetName] = useState('styleA')
+  useEffect(() => {
+    let newSheet = jss.createStyleSheet(styles[sheetName])
+    newSheet.attach()
+    setCssSheet(newSheet)
+  }, [sheetName])
 
   return (
-    <div className="d3-lab">
+    <div className={cssSheet.classes.main}>
       <section
         className="control-container">
         <section className="control rotate-control">
+          <button
+            disabled={sheetName === 'styleA'}
+            onClick={() => setSheetName('styleA')}
+          >
+            set theme A
+          </button>
+          <button
+            disabled={sheetName === 'styleB'}
+            onClick={() => setSheetName('styleB')}
+          >
+            set theme B
+          </button>
+
           <div style={{ display: 'none' }}>
             {rotatation[0].toFixed(0) + ', ' + rotatation[1].toFixed(0)}
           </div>
@@ -62,7 +150,7 @@ function App() {
           }
         </section>
         <ThemeControl
-          setThemeColor={setThemeColor}
+        // setThemeColor={setThemeColor}
         />
         <ScaleControl
           setIsRunning={setIsRunning}
@@ -77,7 +165,8 @@ function App() {
           !isRunning && setIsRunning(true)
         }}
         Map={Map}
-        themeColor={themeColor}
+        cssClasses={cssSheet.classes}
+      // themeColor={themeColor}
       />
 
       {/* <HierTree
