@@ -10,73 +10,11 @@ import ScaleControl from './components/ScaleControl'
 import ThemeControl from './components/ThemeControl'
 import GeoMap from './components/GeoMap'
 import './iconfont/material-icons.css'
-
 import jss from 'jss'
 import preset from 'jss-preset-default'
+import themeFactory from './theme-factory'
 
 jss.setup(preset())
-
-const style = {
-  main: {
-    display: 'flex',
-    color: 'white',
-    background: 'gray',
-  },
-  accent: {
-    color: 'red',
-  },
-  graticule: {
-    stroke: 'white',
-    fill: 'transparent',
-    color: 'blue',
-    strokeWidth: 3,
-  },
-  state: {
-    stroke: 'white',
-    fill: 'transparent',
-    color: 'blue',
-    strokeWidth: 3,
-  },
-  seattle: {
-    stroke: 'red',
-    fill: 'transparent',
-    color: 'blue',
-    strokeWidth: 13,
-  },
-  earth: {
-    color: 'green',
-    stroke: "black",
-    fill: "gray",
-    strokeWidth: 3,
-  },
-  mapContainer: {
-    fill: 'black',
-    stroke: 'blue',
-    width: '600px',
-    height: '600px',
-  }
-}
-
-const styles = {
-  styleA: style,
-  styleB: Object.assign(
-    {},
-    style,
-    {
-      mapContainer: {
-        fill: 'red',
-        stroke: 'blue',
-        width: '600px',
-        height: '600px',
-      },
-      state: {
-        stroke: 'green',
-        fill: 'transparent',
-        color: 'orange',
-        strokeWidth: 3,
-      },
-    })
-}
 
 const hTree = HTree(hierarchyData)
 
@@ -103,12 +41,12 @@ function App() {
   }, 1000)
 
   // theme color useCssSheet()
-  let sheet = jss.createStyleSheet(styles['styleA'])
+  let sheet = jss.createStyleSheet(themeFactory('styleA'))
   sheet.attach()
   const [cssSheet, setCssSheet] = useState(sheet)
   const [sheetName, setSheetName] = useState('styleA')
   useEffect(() => {
-    let newSheet = jss.createStyleSheet(styles[sheetName])
+    let newSheet = jss.createStyleSheet(themeFactory('styleB'))
     newSheet.attach()
     setCssSheet(newSheet)
   }, [sheetName])
