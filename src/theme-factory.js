@@ -6,13 +6,12 @@ import {
 } from 'd3'
 
 const menuOptions = [
-  { label: 'Gray', color: 'gray', keyValue: 'defaultStyle' },
   { label: 'Blue', color: 'blue', keyValue: 'blueStyle' },
   { label: 'Green', color: 'green', keyValue: 'greenStyle' },
-  { label: 'Light', color: 'lightgray', keyValue: 'grayStyle' },
+  { label: 'Gray', color: 'gray', keyValue: 'grayStyle' },
   {
-    label: 'Dark',
-    color: 'darkgray',
+    label: 'Red Green',
+    color: 'green',
     gradient: ['red', 'green'],
     keyValue: 'darkStyle'
   },

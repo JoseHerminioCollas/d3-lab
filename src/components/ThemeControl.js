@@ -9,7 +9,6 @@ const style = {
     padding: '9px',
   },
   element: {
-    cursor: 'pointer',
     background: 'black',
     width: '20px',
   }
@@ -40,13 +39,21 @@ function ThemeControl({ sheetName, setSheetName, menuOptions }) {
               }
             )
           }
+          if (sheetName !== option.keyValue) {
+            Object.assign(
+              newStyle,
+              {
+                cursor: 'pointer'
+              }
+            )
+          }
+
           return (
             <div
               onClick={() => setSheetName(option.keyValue)}
               key={option.keyValue}
               title={option.label}
               style={newStyle}>
-              {sheetName === option.keyValue ? '*' : ''}
             </div>
           )
         }
