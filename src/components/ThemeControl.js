@@ -22,20 +22,34 @@ function ThemeControl({ sheetName, setSheetName, menuOptions }) {
       style={style.container}
     >
       {menuOptions.map(
-        option => (
-          <div
-            onClick={() => setSheetName(option.keyValue)}
-            key={option.keyValue}
-            title={option.label}
-            style={
-              Object.assign(
-                {},
-                style.element,
-                { background: option.color, textAlign: 'center' })
-            }>
+        option => {
+          const newStyle = Object.assign(
+            {},
+            style.element,
+            {
+              background: option.color,
+              textAlign: 'center',
+            })
+          if (option.gradient) {
+            Object.assign(
+              newStyle,
+              {
+                backgroundImage: `
+              linear-gradient(to bottom, 
+                ${option.gradient[0]}, ${option.gradient[1]})`
+              }
+            )
+          }
+          return (
+            <div
+              onClick={() => setSheetName(option.keyValue)}
+              key={option.keyValue}
+              title={option.label}
+              style={newStyle}>
               {sheetName === option.keyValue ? '*' : ''}
-          </div>
-        )
+            </div>
+          )
+        }
       )}
     </section>
   )

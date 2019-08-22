@@ -1,11 +1,21 @@
-import { interpolateBlues } from 'd3'
+import {
+  interpolateBlues,
+  interpolateGreens,
+  interpolateGreys,
+  interpolateRdYlGn,
+} from 'd3'
 
 const menuOptions = [
   { label: 'Gray', color: 'gray', keyValue: 'defaultStyle' },
   { label: 'Blue', color: 'blue', keyValue: 'blueStyle' },
   { label: 'Green', color: 'green', keyValue: 'greenStyle' },
-  { label: 'Light', color: 'lightgray', keyValue: 'lightStyle' },
-  { label: 'Dark', color: 'darkgray', keyValue: 'darkStyle' },
+  { label: 'Light', color: 'lightgray', keyValue: 'grayStyle' },
+  {
+    label: 'Dark',
+    color: 'darkgray',
+    gradient: ['red', 'green'],
+    keyValue: 'darkStyle'
+  },
 ]
 const defaultStyle = {
   mapContainer: {
@@ -45,25 +55,34 @@ for (const prop in styleB) {
   styleB[prop].stroke = "blue"
 }
 // create the blueStyle option
-const blueStyle = JSON.parse(JSON.stringify(defaultStyle))
-const steps = 9
-let i = 0
-let j = 1
-for (const prop in blueStyle) {
-  if (prop !== 'graticule') {
-    blueStyle[prop].fill = interpolateBlues(j)
+function colorize(styleObject, interpolator) {
+  const newStyleObject = JSON.parse(JSON.stringify(styleObject))
+  const steps = 9
+  let i = 0
+  let j = 1
+  for (const prop in newStyleObject) {
+    if (prop !== 'graticule') {
+      newStyleObject[prop].fill = interpolator(j)
+    }
+    if (prop !== 'city') {
+      newStyleObject[prop].stroke = interpolator(i)
+    }
+    i += 1 / steps
+    j -= 1 / steps
   }
-  if (prop !== 'city') {
-    blueStyle[prop].stroke = interpolateBlues(i)
-  }
-  i += 1 / steps
-  j -= 1 / steps
+  return newStyleObject
 }
-
+const blueStyle = colorize(defaultStyle, interpolateBlues)
+const greenStyle = colorize(defaultStyle, interpolateGreens)
+const grayStyle = colorize(defaultStyle, interpolateGreys)
+const darkStyle = colorize(defaultStyle, interpolateRdYlGn)
 const styles = {
   defaultStyle,
   styleB,
   blueStyle,
+  greenStyle,
+  grayStyle,
+  darkStyle,
 }
 function themeFactory(themeName = 'defaultStyle') {
   return styles[themeName]
